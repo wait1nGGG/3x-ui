@@ -2111,6 +2111,16 @@ func applyShareRealityParams(stream map[string]any, params map[string]string, cl
 				params["fp"] = fp
 			}
 		}
+		// Shadowrocket re-applies a subscription node's link parameters over any
+		// manual fingerprint edit, and its generic "chrome" profile does not send
+		// the X25519MLKEM768 key share xray-core 26.9.8+ requires from REALITY
+		// clients. Emit an optional Shadowrocket-only profile in fp instead; the
+		// Clash/JSON subscriptions keep using the standard fingerprint above.
+		if srValue, ok := searchKey(realitySettings, "shadowrocketFingerprint"); ok {
+			if sr, ok := srValue.(string); ok && len(sr) > 0 {
+				params["fp"] = sr
+			}
+		}
 		if pqvValue, ok := searchKey(realitySettings, "mldsa65Verify"); ok {
 			if pqv, ok := pqvValue.(string); ok && len(pqv) > 0 {
 				params["pqv"] = pqv

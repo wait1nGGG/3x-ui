@@ -671,6 +671,8 @@
         "clientVerInvalid": "Client version must be up to three dot-separated numbers, each 0-255 (e.g. 26.3.27)",
         "maxClientVerBelowMin": "Max Client Ver must not be lower than Min Client Ver",
         "shortIds": "Short IDs",
+        "shadowrocketFingerprint": "Shadowrocket fingerprint",
+        "shadowrocketFingerprintHint": "Optional. Written only into raw vless:// share links and subscriptions as fp, so Shadowrocket stops replacing it with its generic chrome profile. Chrome120, Chrome140, Safari26_3 and Firefox148 send the X25519MLKEM768 key share that Xray-core 26.9.8+ requires from REALITY clients. Clash and JSON subscriptions keep using the uTLS above.",
         "realityTargetHint": "Required. Must include a port (e.g. example.com:443). Without a port Xray-core refuses to start.",
         "realityTargetRequired": "REALITY target is required",
         "tlsCertificateRequired": "Import a TLS certificate or enter its file path before saving",

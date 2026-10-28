@@ -13,6 +13,18 @@ export const UTLS_FINGERPRINT = Object.freeze({
   UTLS_UNSAFE: 'unsafe',
 });
 
+// Shadowrocket's versioned uTLS profiles. Its generic "chrome" profile
+// predates the X25519MLKEM768 key share that xray-core 26.9.8+ requires from
+// REALITY clients; these four are the profiles Shadowrocket marks as carrying
+// it. The names are Shadowrocket-only, so they are kept out of
+// UTLS_FINGERPRINT: xray-core and Mihomo reject them as unknown.
+export const SHADOWROCKET_UTLS_FINGERPRINT = Object.freeze({
+  CHROME_120: 'Chrome120',
+  CHROME_140: 'Chrome140',
+  SAFARI_26_3: 'Safari26_3',
+  FIREFOX_148: 'Firefox148',
+});
+
 export const ALPN_OPTION = Object.freeze({
   H3: 'h3',
   H2: 'h2',

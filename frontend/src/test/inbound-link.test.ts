@@ -1459,7 +1459,11 @@ describe('genTuicLink', () => {
 describe('isPostQuantumLink', () => {
   type RealityFixture = {
     settings: { clients: Array<{ id: string }>; encryption?: string };
-    streamSettings: { realitySettings: { settings: { mldsa65Verify?: string } } };
+    streamSettings: {
+      realitySettings: {
+        settings: { mldsa65Verify?: string; shadowrocketFingerprint?: string };
+      };
+    };
   };
   const [, raw] = fixturesForProtocol('vless').find(([name]) => name === 'vless-tcp-reality')!;
   const clientId = (raw as RealityFixture).settings.clients[0].id;
@@ -1496,6 +1500,16 @@ describe('isPostQuantumLink', () => {
       ib.streamSettings.realitySettings.settings.mldsa65Verify = 'B'.repeat(2603);
     });
     expect(isPostQuantumLink(link)).toBe(true);
+  });
+
+  // Shadowrocket re-applies the subscription link's fp over a manual edit, and
+  // its generic chrome profile lacks X25519MLKEM768. The link must carry the
+  // Shadowrocket-only profile when one is set.
+  it('writes the Shadowrocket fingerprint as fp on REALITY links', () => {
+    const link = realityLink((ib) => {
+      ib.streamSettings.realitySettings.settings.shadowrocketFingerprint = 'Chrome140';
+    });
+    expect(new URL(link).searchParams.get('fp')).toBe('Chrome140');
   });
 
   it('exports cipherSuites as cs query parameter on VLESS TLS links', () => {

@@ -18,7 +18,7 @@ import { RadarChartOutlined, ReloadOutlined, SearchOutlined } from '@ant-design/
 import dayjs from 'dayjs';
 
 import { FormField } from '@/components/form/rhf';
-import { UTLS_FINGERPRINT } from '@/schemas/primitives';
+import { SHADOWROCKET_UTLS_FINGERPRINT, UTLS_FINGERPRINT } from '@/schemas/primitives';
 import {
   validateRealityClientVer,
   validateRealityMaxClientVer,
@@ -112,6 +112,20 @@ export default function RealityForm({
         label="uTLS"
       >
         <Select options={Object.values(UTLS_FINGERPRINT).map((fp) => ({ value: fp, label: fp }))} />
+      </FormField>
+      <FormField
+        name={['streamSettings', 'realitySettings', 'settings', 'shadowrocketFingerprint']}
+        label={t('pages.inbounds.form.shadowrocketFingerprint')}
+        tooltip={t('pages.inbounds.form.shadowrocketFingerprintHint')}
+      >
+        <Select
+          allowClear
+          placeholder={t('none')}
+          options={Object.values(SHADOWROCKET_UTLS_FINGERPRINT).map((fp) => ({
+            value: fp,
+            label: fp,
+          }))}
+        />
       </FormField>
       <Form.Item
         htmlFor={`${uid}-target`}

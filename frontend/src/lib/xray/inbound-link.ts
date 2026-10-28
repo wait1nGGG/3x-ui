@@ -529,7 +529,7 @@ export function genVlessLink(input: GenVlessLinkInput): string {
     if (stream.security === 'reality') {
       const reality = stream.realitySettings;
       params.set('pbk', reality.settings.publicKey);
-      params.set('fp', reality.settings.fingerprint);
+      params.set('fp', reality.settings.shadowrocketFingerprint || reality.settings.fingerprint);
 
       const sni =
         reality.settings.serverName || reality.serverNames?.[0] || reality.target?.split(':')[0];
@@ -642,7 +642,7 @@ function writeRealityParams(
   if (stream.security !== 'reality') return;
   const reality = stream.realitySettings;
   params.set('pbk', reality.settings.publicKey);
-  params.set('fp', reality.settings.fingerprint);
+  params.set('fp', reality.settings.shadowrocketFingerprint || reality.settings.fingerprint);
 
   const sni =
     reality.settings.serverName || reality.serverNames?.[0] || reality.target?.split(':')[0];

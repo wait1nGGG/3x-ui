@@ -8,6 +8,12 @@ import { UtlsFingerprintSchema } from '@/schemas/protocols/security/tls';
 export const RealityClientSettingsSchema = z.object({
   publicKey: z.string().default(''),
   fingerprint: UtlsFingerprintSchema.default('chrome'),
+  // Shadowrocket-only uTLS profile (Chrome140, Safari26_3, ...) written as the
+  // `fp` of raw vless:// links. Shadowrocket re-applies a subscription node's
+  // link parameters over manual edits, and its generic `chrome` profile does
+  // not send the X25519MLKEM768 key share that xray-core 26.9.8+ requires from
+  // REALITY clients. Clash/JSON subscriptions keep using `fingerprint`.
+  shadowrocketFingerprint: z.string().default(''),
   serverName: z.string().default(''),
   spiderX: z.string().default('/'),
   mldsa65Verify: z.string().default(''),
@@ -71,6 +77,7 @@ export const RealityStreamSettingsSchema = z.preprocess(
     settings: RealityClientSettingsSchema.default({
       publicKey: '',
       fingerprint: 'chrome',
+      shadowrocketFingerprint: '',
       serverName: '',
       spiderX: '/',
       mldsa65Verify: '',

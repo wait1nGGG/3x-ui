@@ -677,6 +677,8 @@
         "clientVerInvalid": "客户端版本须为最多三段以点分隔的数字，每段 0-255（例如 26.3.27）",
         "maxClientVerBelowMin": "最大客户端版本不得低于最小客户端版本",
         "shortIds": "Short IDs",
+        "shadowrocketFingerprint": "Shadowrocket 指纹",
+        "shadowrocketFingerprintHint": "可选。只写入原始 vless:// 分享链接和订阅的 fp，使 Shadowrocket 不会再把它覆盖回通用 chrome。Chrome120、Chrome140、Safari26_3、Firefox148 是 Shadowrocket 中会发送 X25519MLKEM768 key share 的指纹，Xray-core 26.9.8+ 的 REALITY 服务端要求该 key share。Clash 和 JSON 订阅仍使用上面的 uTLS。",
         "realityTargetHint": "必填。必须包含端口（例如 example.com:443）。没有端口时 Xray-core 将无法启动。",
         "realityTargetRequired": "REALITY 目标为必填项",
         "tlsCertificateRequired": "请先导入 TLS 证书或填写证书文件路径，再保存入站",
